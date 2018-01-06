@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.google.delsdcardapk.MainActivity">
+
+   <Button
+       android:id="@+id/delApk"
+       android:text="删除SD卡安装包"
+       android:onClick="buttonClick"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+         />
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom"
+       android:text="输出日志" />
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:id="@+id/logMsg"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="空" />
+
+   </ScrollView>
+
+</LinearLayout>
