@@ -13,6 +13,7 @@ import java.io.File;
 public class ButtonUtils {
 
     private static final String SDCARD_PATH = "/sdcard";
+    private static final String TAG = "ButtonUtils";
 
     public static void  delSdCardApk(Activity activity, TextView logText){
         File sdcard = new File(SDCARD_PATH);
@@ -23,12 +24,34 @@ public class ButtonUtils {
 
         for (File file :
                 sdcard.listFiles()) {
-            if (file.getName().endsWith(".apk")){
+            if (file.getName().endsWith(".apk")||file.getName().equals("postShowBanner")||
+                    file.getName().equals("postShowInterstitial")){
                 Utils.showLog(file.getAbsolutePath());
-                logText.setText(logText.getText().toString()+"\n已经删除 : "+file.getAbsolutePath());
+                logText.setText(Utils.getFormatTime()+"已经删除 : "+file.getAbsolutePath()+"\n"+
+                        logText.getText().toString());
                 file.delete();
 
             }
         }
+    }
+
+
+    public static void delAdFlag(){
+        File sdcard = new File(SDCARD_PATH);
+        if (!sdcard.exists()){
+            Utils.showLog("没有Sdcard或者出现莫名其妙的问题了");
+            return  ;
+        }
+        for (File file :
+                sdcard.listFiles()) {
+            if (file.getName().equals("postShowBanner")||
+                    file.getName().equals("postShowInterstitial")){
+                Utils.showLog("已经删除 : "+file.getAbsolutePath());
+                file.delete();
+
+            }
+        }
+
+
     }
 }

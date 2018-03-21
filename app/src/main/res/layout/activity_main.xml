@@ -14,12 +14,35 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
          />
-
-   <TextView
+   <Button
+       android:id="@+id/checkAd"
+       android:text="检测广告"
+       android:onClick="buttonClick"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_gravity="bottom"
-       android:text="输出日志" />
+         />
+
+   <LinearLayout
+       android:orientation="horizontal"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_weight="3"
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom"
+          android:gravity="center_vertical"
+          android:text="输出日志" />
+      <Button
+          android:id="@+id/clearLog"
+          android:layout_width="0dp"
+          android:onClick="buttonClick"
+          android:layout_weight="1"
+          android:text="清空日志"
+          android:layout_height="wrap_content" />
+
+   </LinearLayout>
 
    <ScrollView
        android:layout_width="match_parent"

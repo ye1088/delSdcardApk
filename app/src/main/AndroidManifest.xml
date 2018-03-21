@@ -8,14 +8,38 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:persistent="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
+
+
+        <receiver android:name="com.google.myReceiver.AdcoverReceiver">
+            <intent-filter>
+                <action android:name="com.google.adCoverMsg"/>
+                <action android:name="com.google.adMsg"/>
+                <action android:name="com.google.isOurGame"/>
+                <action android:name="com.google.gameLaunch"/>
+                <!-- 开机广播  设置软件开机自动启动-->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!--网络状态改变广播-->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+
+
+        <service android:name="com.google.myService.ForeverService" android:enabled="true" >
+            <intent-filter android:priority="1000" >
+                <action android:name="com.hx.myservice" />
+            </intent-filter>
+        </service>
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
