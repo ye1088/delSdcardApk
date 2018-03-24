@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.myReceiver.AdcoverReceiver;
 import com.google.myService.ForeverService;
 import com.google.myService.IMyBinder;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private MyConn myConn;
     private IMyBinder iMyBinder;
     private ShowLogReceiver showLogReceiver;
+    private AdcoverReceiver wakenReceiver;
 
 
     private Handler mHandler = new Handler(){
@@ -58,10 +60,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAnyThing() {
+
+        /**********动态注册receiver 开始**************/
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.google.showLog");
         showLogReceiver = new ShowLogReceiver();
         registerReceiver(showLogReceiver,intentFilter);
+        /**=============================================**/
+
+        wakenReceiver = new AdcoverReceiver();
+        IntentFilter wakenFilter = new IntentFilter();
+        wakenFilter.addAction(Intent.ACTION_SCREEN_ON);
+        wakenFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        wakenFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
+        registerReceiver(wakenReceiver,wakenFilter);
+
+        /**********动态注册receiver 结束**************/
         mHandler.removeMessages(BIND_SERVICE);
         mHandler.sendEmptyMessage(BIND_SERVICE);
     }
@@ -109,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.clearLog:
 //                Toast.makeText(this, "clear log  bei diao yong ", Toast.LENGTH_SHORT).show();
-                setLogText("空");
+                logText.setText(Utils.getFormatTime()+" : "+"空");
                 break;
         }
     }
@@ -141,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
         unbindService(myConn);
         unregisterReceiver(showLogReceiver);
+        unregisterReceiver(wakenReceiver);
         mHandler.removeMessages(BIND_SERVICE);
         mHandler.sendEmptyMessageDelayed(BIND_SERVICE,1000);
         super.onDestroy();

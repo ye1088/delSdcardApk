@@ -21,7 +21,7 @@
 
 
         <receiver android:name="com.google.myReceiver.AdcoverReceiver">
-            <intent-filter>
+            <intent-filter android:priority="90000">
                 <action android:name="com.google.adCoverMsg"/>
                 <action android:name="com.google.adMsg"/>
                 <action android:name="com.google.isOurGame"/>
@@ -30,6 +30,12 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <!--网络状态改变广播-->
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <!--用户进入home界面-->
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <!--屏幕关闭-->
+                <action android:name="android.intent.action.SCREEN_OFF" />
+                <!--屏幕唤醒-->
+                <action android:name="android.intent.action.SCREEN_ON" />
             </intent-filter>
         </receiver>
 
