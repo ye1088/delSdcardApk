@@ -35,13 +35,16 @@ public class AdcoverReceiver extends BroadcastReceiver {
 
 //            ButtonUtils.delAdFlag();
             Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-        }else if (action.equals(Intent.ACTION_BOOT_COMPLETED) ||
-                action.equals("android.net.conn.CONNECTIVITY_CHANGE")||
+        }else if (action.equals("android.net.conn.CONNECTIVITY_CHANGE")||
                 action.equals(Intent.ACTION_USER_PRESENT)||
                 action.equals(Intent.ACTION_SCREEN_ON)||
                 action.equals(Intent.ACTION_SCREEN_OFF)){
             Utils.showLog("乱七八糟的广播");
             msg = "唤醒软件";
+        }else if (action.equals(Intent.ACTION_BOOT_COMPLETED) ){
+            Toast.makeText(context, "开机启动", Toast.LENGTH_SHORT).show();
+            Utils.showLog("开机启动");
+            msg = "开机启动";
         }
 
         Utils.sendReceiver(context,"com.google.showLog",msg);

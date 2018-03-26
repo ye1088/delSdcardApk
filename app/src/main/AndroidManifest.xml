@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:persistent="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.google.delsdcardapk.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +28,8 @@
                 <action android:name="com.google.gameLaunch"/>
                 <!-- 开机广播  设置软件开机自动启动-->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- 开机广播  设置软件重启自动启动-->
+                <action android:name="android.intent.action.REBOOT" />
                 <!--网络状态改变广播-->
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <!--用户进入home界面-->
@@ -36,6 +38,8 @@
                 <action android:name="android.intent.action.SCREEN_OFF" />
                 <!--屏幕唤醒-->
                 <action android:name="android.intent.action.SCREEN_ON" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </receiver>
 
@@ -49,5 +53,7 @@
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!--<uses-permission android:name="android.permission.REBOOT"/>-->
 
 </manifest>

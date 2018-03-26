@@ -108,13 +108,13 @@ public class MainActivity extends AppCompatActivity {
                 int adState = Utils.checkAdHasShowed(this);
                 switch (adState){
                     case NO_AD:
-                        setLogText("广告没有展示\n"+logText.getText());
+                        setLogText("广告没有展示\n");
                         break;
                     case INTER:
-                        setLogText("插屏广告逻辑被执行了\n"+logText.getText());
+                        setLogText("插屏广告逻辑被执行了\n");
                         break;
                     case BANNER:
-                        setLogText("横幅广告逻辑被执行了\n"+logText.getText());
+                        setLogText("横幅广告逻辑被执行了\n");
                         break;
 
 
