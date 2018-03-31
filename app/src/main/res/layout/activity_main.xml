@@ -21,6 +21,13 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
          />
+   <Button
+       android:id="@+id/go_apkManager"
+       android:text="已装应用"
+       android:onClick="buttonClick"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+         />
 
    <LinearLayout
        android:orientation="horizontal"

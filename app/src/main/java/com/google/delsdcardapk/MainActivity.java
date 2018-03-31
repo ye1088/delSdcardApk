@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.apkInfo.ApkManageActivity;
 import com.google.myReceiver.AdcoverReceiver;
 import com.google.myService.ForeverService;
 import com.google.myService.IMyBinder;
@@ -102,6 +103,11 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.delApk:
                 ButtonUtils.delSdCardApk(this,logText);
+                break;
+            case R.id.go_apkManager:
+                Intent intent = new Intent(this, ApkManageActivity.class);
+                startActivity(intent);
+//                Utils.gotoNextActivity(this, ApkManageActivity.class);
                 break;
             case R.id.checkAd:
 

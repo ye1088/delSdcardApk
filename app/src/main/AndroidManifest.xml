@@ -12,6 +12,17 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.google.delsdcardapk.MainActivity"
              >
+           <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>-->
+        </activity>
+
+
+        <!-- 管理apk相关的Activity 比如: 删除apk-->
+        <activity android:name="com.google.apkInfo.ApkManageActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,10 +30,6 @@
 
             </intent-filter>
         </activity>
-
-
-        <!-- 管理apk相关的Activity 比如: 删除apk-->
-        <activity android:name="com.google.apkInfo.ApkManageActivity"/>
 
 
         <receiver android:name="com.google.myReceiver.AdcoverReceiver">

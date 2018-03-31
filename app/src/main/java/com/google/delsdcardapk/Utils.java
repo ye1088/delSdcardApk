@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
@@ -73,5 +74,17 @@ public class Utils {
         Intent intent = new Intent(action);
         intent.putExtra("msg",msg);
         context.sendBroadcast(intent);
+    }
+
+    public static void uninstall_apk(Context context,String packageName){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_DELETE);
+        intent.setData(Uri.parse("package:"+packageName));
+        context.startActivity(intent);
+    }
+
+    public static void gotoNextActivity(Context context,Class nextClass){
+        Intent intent = new Intent(context, nextClass);
+        context.startActivity(intent);
     }
 }
