@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -22,6 +23,7 @@ public class Utils {
 
     private static final boolean ISDEBUG = true;
     private static final String TAG = "delSdcardApk_xyz";
+    private static long  oldTime= 0;
 
     public static void showLog(String msg){
         if (ISDEBUG){
@@ -57,6 +59,22 @@ public class Utils {
 
     }
 
+
+    /**
+     * 判断是否经历了一定的时间
+     * @param intevalTime 间隔时间
+     * @return
+     */
+    public static boolean hasAccessTime(long intevalTime){
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - oldTime>intevalTime){
+            oldTime = currentTime;
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * 格式化单钱时间并且返回
      * @return
@@ -76,7 +94,7 @@ public class Utils {
         context.sendBroadcast(intent);
     }
 
-    public static void uninstall_apk(Context context,String packageName){
+    public static void uninstall_apk(Context context, String packageName){
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_DELETE);
         intent.setData(Uri.parse("package:"+packageName));
@@ -87,4 +105,18 @@ public class Utils {
         Intent intent = new Intent(context, nextClass);
         context.startActivity(intent);
     }
+
+    public static Process execRuntimeProcess(String commond) {
+        Process p = null;
+        try {
+            p = Runtime.getRuntime().exec(commond);
+        } catch (IOException e) {
+            showLog("exec Runtime commond:" + commond + ", IOException" + e);
+            e.printStackTrace();
+        }
+        showLog("exec Runtime commond:" + commond + ", Process:" + p);
+        return p;
+    }
 }
+
+

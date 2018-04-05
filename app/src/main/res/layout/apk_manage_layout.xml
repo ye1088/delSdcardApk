@@ -4,8 +4,25 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/apk_manage_back"
+            android:src="@mipmap/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="应用列表" />
+    </RelativeLayout>
+
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/appInfo_lv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 

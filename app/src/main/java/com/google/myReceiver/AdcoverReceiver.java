@@ -13,6 +13,11 @@ import com.google.delsdcardapk.Utils;
  */
 
 public class AdcoverReceiver extends BroadcastReceiver {
+
+
+
+
+
     /**
      *  用来检测覆盖广告是否被执行了
      * @param context

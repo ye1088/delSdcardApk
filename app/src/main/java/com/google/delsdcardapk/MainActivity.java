@@ -105,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
                 ButtonUtils.delSdCardApk(this,logText);
                 break;
             case R.id.go_apkManager:
-                Intent intent = new Intent(this, ApkManageActivity.class);
-                startActivity(intent);
-//                Utils.gotoNextActivity(this, ApkManageActivity.class);
+//                Intent intent = new Intent(this, ApkManageActivity.class);
+//                startActivity(intent);
+                Utils.gotoNextActivity(this, ApkManageActivity.class);
                 break;
             case R.id.checkAd:
 
@@ -168,6 +168,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+
+    }
 
     public class ShowLogReceiver extends BroadcastReceiver{
         /**
