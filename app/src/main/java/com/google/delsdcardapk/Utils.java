@@ -2,11 +2,14 @@ package com.google.delsdcardapk;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by admin on 2018/1/6.
@@ -116,6 +120,33 @@ public class Utils {
         }
         showLog("exec Runtime commond:" + commond + ", Process:" + p);
         return p;
+    }
+
+    public static void startApp(Context mContext, String packageName) {
+        /**
+         *  启动一个应用
+         */
+        Intent intent = null;
+        PackageManager packageManager = mContext.getPackageManager();
+        intent = packageManager.getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            mContext.startActivity(intent);
+        } else {
+            intent = new Intent(Intent.ACTION_MAIN);
+            List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(
+                    intent, PackageManager.MATCH_ALL);
+            for (ResolveInfo resolveInfo :
+                    resolveInfos) {
+                if (resolveInfo.activityInfo.packageName.equals(packageName)) {
+                    String mainActivity = resolveInfo.activityInfo.name;
+                    if (!TextUtils.isEmpty(mainActivity)){
+                        intent.setComponent(new ComponentName(packageName,mainActivity));
+                        mContext.startActivity(intent);
+                    }
+                    break;
+                }
+            }
+        }
     }
 }
 

@@ -141,7 +141,7 @@ public class ApkManageActivity extends Activity implements View.OnClickListener{
     private void showFunDialog(){
         selFunDialog = new AlertDialog.Builder(this).setTitle("选择操作:").
                 setIcon(R.mipmap.ic_launcher).setItems(
-                new String[]{"清除数据","卸载应用"}, new DialogInterface.OnClickListener() {
+                new String[]{"清除数据","卸载应用","启动应用"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i){
@@ -151,7 +151,12 @@ public class ApkManageActivity extends Activity implements View.OnClickListener{
                                 startActivity(intent);
                                 break;
                             case 1:
+                                // 卸载应用
                                 Utils.uninstall_apk(mContext,appList.get(appIndex).packageName);
+                                break;
+                            case 2:
+                                // 启动应用
+                                Utils.startApp(mContext,appList.get(appIndex).packageName);
                                 break;
                         }
 
