@@ -187,6 +187,11 @@ public class ApkManageActivity extends Activity implements View.OnClickListener{
     }
 
 
+    /**
+     * 获取
+     * @param apkInfoList
+     * @return
+     */
     private List<ApplicationInfo> checkLunchIntentApp(List<ApplicationInfo> apkInfoList){
         ArrayList<ApplicationInfo> appList = new ArrayList<>();
 
