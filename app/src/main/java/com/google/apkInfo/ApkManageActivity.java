@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -147,7 +148,9 @@ public class ApkManageActivity extends Activity implements View.OnClickListener{
                         switch (i){
                             case 0:
                                 // 跳转到已安装应用列表
-                                Intent intent = new Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package", appList.get(appIndex).packageName, null);
+                                intent.setData(uri);
                                 startActivity(intent);
                                 break;
                             case 1:
