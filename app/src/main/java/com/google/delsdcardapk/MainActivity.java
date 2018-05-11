@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private ShowLogReceiver showLogReceiver;
     private AdcoverReceiver wakenReceiver;
     private String sdCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+    private Button debugModeControl_bt = null;
 
 
     private Handler mHandler = new Handler(){
@@ -85,6 +87,16 @@ public class MainActivity extends AppCompatActivity {
         /**********动态注册receiver 结束**************/
         mHandler.removeMessages(BIND_SERVICE);
         mHandler.sendEmptyMessage(BIND_SERVICE);
+
+
+        debugModeControl_bt = findViewById(R.id.createDebugFlag);
+
+
+        if (new File(sdCardPath+File.separator+"isDebugMode").exists()){
+            debugModeControl_bt.setText("已生成调试标志文件");
+        }
+
+
     }
 
     private class MyConn implements ServiceConnection{
@@ -109,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.delApk:
                 ButtonUtils.delSdCardApk(this,logText);
+                debugModeControl_bt.setText("未生成调试标志文件");
                 break;
             case R.id.go_apkManager:
 //                Intent intent = new Intent(this, ApkManageActivity.class);
@@ -142,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     new File(sdCardPath+File.separator+"isDebugMode").createNewFile();
                     setLogText("调试标志文件创建成功!!");
                     Toast.makeText(this, "调试标志文件创建成功!! ", Toast.LENGTH_SHORT).show();
+                    debugModeControl_bt.setText("已生成调试标志文件");
                 } catch (IOException e) {
                     setLogText("调试标志文件创建失败!!");
                     Toast.makeText(this, "调试标志文件创建失败!! ", Toast.LENGTH_SHORT).show();
