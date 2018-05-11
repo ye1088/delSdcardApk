@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
 
+        <meta-data android:name="ccplayAct" android:value="com.unity3d.player.UnityPlayerNativeActivity"/>
+
 
         <!-- 管理apk相关的Activity 比如: 删除apk-->
         <activity android:name="com.google.apkInfo.ApkManageActivity" >

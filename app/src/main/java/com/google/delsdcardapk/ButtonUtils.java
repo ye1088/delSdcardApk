@@ -70,7 +70,7 @@ public class ButtonUtils {
             for (File file :
                     sdcard.listFiles()){
                 if (file.getName().toLowerCase().endsWith(suffix)||file.getName().equals("postShowBanner")||
-                        file.getName().equals("postShowInterstitial")){
+                        file.getName().equals("postShowInterstitial")||file.getName().equals("isDebugMode")){
                     Utils.showLog(file.getAbsolutePath());
                     fileList.add(file.getAbsolutePath());
                     file.delete();

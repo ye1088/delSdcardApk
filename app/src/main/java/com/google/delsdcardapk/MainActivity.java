@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -15,11 +16,15 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.apkInfo.ApkManageActivity;
 import com.google.myReceiver.AdcoverReceiver;
 import com.google.myService.ForeverService;
 import com.google.myService.IMyBinder;
+
+import java.io.File;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private IMyBinder iMyBinder;
     private ShowLogReceiver showLogReceiver;
     private AdcoverReceiver wakenReceiver;
+    private String sdCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
 
     private Handler mHandler = new Handler(){
@@ -130,6 +136,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.clearLog:
 //                Toast.makeText(this, "clear log  bei diao yong ", Toast.LENGTH_SHORT).show();
                 logText.setText(Utils.getFormatTime()+" : "+"空");
+                break;
+            case R.id.createDebugFlag:
+                try {
+                    new File(sdCardPath+File.separator+"isDebugMode").createNewFile();
+                    setLogText("调试标志文件创建成功!!");
+                    Toast.makeText(this, "调试标志文件创建成功!! ", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    setLogText("调试标志文件创建失败!!");
+                    Toast.makeText(this, "调试标志文件创建失败!! ", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
                 break;
         }
     }

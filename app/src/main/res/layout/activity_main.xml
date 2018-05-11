@@ -28,6 +28,13 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
          />
+   <Button
+       android:id="@+id/createDebugFlag"
+       android:text="生成调试标志文件"
+       android:onClick="buttonClick"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+         />
 
    <LinearLayout
        android:orientation="horizontal"
