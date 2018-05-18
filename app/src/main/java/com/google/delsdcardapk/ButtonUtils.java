@@ -3,10 +3,14 @@ package com.google.delsdcardapk;
 import android.app.Activity;
 import android.content.Context;
 import android.os.storage.StorageManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.Utils.XmParam;
+
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -49,11 +53,6 @@ public class ButtonUtils {
             e.printStackTrace();
         }
 
-
-
-
-
-
         for (String filePath :
                 fileList) {
             logText.setText(Utils.getFormatTime() + "已经删除 : " + filePath + "\n" +
@@ -70,7 +69,7 @@ public class ButtonUtils {
             for (File file :
                     sdcard.listFiles()){
                 if (file.getName().toLowerCase().endsWith(suffix)||file.getName().equals("postShowBanner")||
-                        file.getName().equals("postShowInterstitial")||file.getName().equals("isDebugMode")){
+                        file.getName().equals("postShowInterstitial")){
                     Utils.showLog(file.getAbsolutePath());
                     fileList.add(file.getAbsolutePath());
                     file.delete();
@@ -99,5 +98,47 @@ public class ButtonUtils {
         }
 
 
+    }
+    public static void createDebugFlag(MainActivity mainActivity,String debugFileName){
+        try {
+            File debugFlagFile = new File(XmParam.sdCardPath + File.separator + debugFileName);
+            Button debugButton = null;
+            if (debugFileName.equals(XmParam.debugFileName)){
+                debugFileName = "-广告";
+                debugButton = mainActivity.debugModeControl_bt;
+            }else if (debugFileName.equals(XmParam.debugFileName_debug_id)){
+                debugFileName = "-默认id";
+                debugButton = mainActivity.debugModeControl_debug_id_bt;
+            }
+
+            if (debugFlagFile.exists()){
+                if (debugFlagFile.delete()){
+                    mainActivity.setLogText("调试标志文件删除成功!!");
+                    Toast.makeText(mainActivity, "调试标志文件删除成功!! ", Toast.LENGTH_SHORT).show();
+                    debugButton.setText("未生成调试标志文件"+debugFileName);
+                }else {
+                    mainActivity.setLogText("调试标志文件删除失败!!");
+                    Toast.makeText(mainActivity, "调试标志文件删除失败!! ", Toast.LENGTH_SHORT).show();
+                    debugButton.setText("已生成调试标志文件"+debugFileName);
+                }
+            }else {
+                if (debugFlagFile.createNewFile()){
+                    mainActivity.setLogText("调试标志文件创建成功!!");
+                    Toast.makeText(mainActivity, "调试标志文件创建成功!! ", Toast.LENGTH_SHORT).show();
+                    debugButton.setText("已生成调试标志文件"+debugFileName);
+                }else {
+                    mainActivity.setLogText("调试标志文件创建失败!!");
+                    Toast.makeText(mainActivity, "调试标志文件创建失败!! ", Toast.LENGTH_SHORT).show();
+                    debugButton.setText("未生成调试标志文件"+debugFileName);
+                }
+
+            }
+
+
+        } catch (IOException e) {
+            mainActivity.setLogText("调试标志文件创建失败!!");
+            Toast.makeText(mainActivity, "调试标志文件创建失败!! ", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 }

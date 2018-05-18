@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -15,17 +16,17 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.Utils.XmParam;
 import com.google.apkInfo.ApkManageActivity;
 import com.google.myReceiver.AdcoverReceiver;
 import com.google.myService.ForeverService;
 import com.google.myService.IMyBinder;
 
 import java.io.File;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private ShowLogReceiver showLogReceiver;
     private AdcoverReceiver wakenReceiver;
     private String sdCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    private Button debugModeControl_bt = null;
+    public Button debugModeControl_bt = null;
+    public Button debugModeControl_debug_id_bt = null;
 
 
     private Handler mHandler = new Handler(){
@@ -61,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
 
         Utils.checkPermission(this);
         initView();
@@ -90,10 +94,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         debugModeControl_bt = findViewById(R.id.createDebugFlag);
+        debugModeControl_debug_id_bt = findViewById(R.id.createDebugFlag_Debug_id);
 
 
-        if (new File(sdCardPath+File.separator+"isDebugMode").exists()){
+        if (new File(XmParam.sdCardPath+File.separator+XmParam.debugFileName).exists()|
+                new File(XmParam.sdCardPath+File.separator+XmParam.debugFileName_debug_id).exists()  ){
             debugModeControl_bt.setText("已生成调试标志文件");
+            debugModeControl_debug_id_bt.setText("已生成调试标志文件");
         }
 
 
@@ -121,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.delApk:
                 ButtonUtils.delSdCardApk(this,logText);
-                debugModeControl_bt.setText("未生成调试标志文件");
                 break;
             case R.id.go_apkManager:
 //                Intent intent = new Intent(this, ApkManageActivity.class);
@@ -151,16 +157,10 @@ public class MainActivity extends AppCompatActivity {
                 logText.setText(Utils.getFormatTime()+" : "+"空");
                 break;
             case R.id.createDebugFlag:
-                try {
-                    new File(sdCardPath+File.separator+"isDebugMode").createNewFile();
-                    setLogText("调试标志文件创建成功!!");
-                    Toast.makeText(this, "调试标志文件创建成功!! ", Toast.LENGTH_SHORT).show();
-                    debugModeControl_bt.setText("已生成调试标志文件");
-                } catch (IOException e) {
-                    setLogText("调试标志文件创建失败!!");
-                    Toast.makeText(this, "调试标志文件创建失败!! ", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
+                ButtonUtils.createDebugFlag(this,XmParam.debugFileName);
+                break;
+            case R.id.createDebugFlag_Debug_id:
+                ButtonUtils.createDebugFlag(this,XmParam.debugFileName_debug_id);
                 break;
         }
     }
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
      * 展示log信息到textview中去
      * @param msg
      */
-    private void setLogText(String msg){
+    public void setLogText(String msg){
         logText.setText(Utils.getFormatTime()+" : "+msg +"\n"+ logText.getText().toString());
     }
 
@@ -180,7 +180,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1){
             for (int i = 0; i < permissions.length; i++) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED){
-                    requestPermissions(permissions,1);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(permissions,1);
+                    }
                 }
             }
         }
