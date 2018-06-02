@@ -10,5 +10,6 @@ public class XmParam {
     public static String sdCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
     public static String debugFileName = "isDebugMode";
     public static String debugFileName_debug_id = "isDebugMode_id";
+    public static String debugFileName_debug_showLog = "isDebugMode_showLog";
 
 }

@@ -109,6 +109,9 @@ public class ButtonUtils {
             }else if (debugFileName.equals(XmParam.debugFileName_debug_id)){
                 debugFileName = "-默认id";
                 debugButton = mainActivity.debugModeControl_debug_id_bt;
+            }else if (debugFileName.equals(XmParam.debugFileName_debug_showLog)){
+                debugFileName = "-日志";
+                debugButton = mainActivity.createShowLogFlag;
             }
 
             if (debugFlagFile.exists()){

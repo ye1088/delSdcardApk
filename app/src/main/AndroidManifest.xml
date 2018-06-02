@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:persistent="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.google.delsdcardapk.MainActivity"
+        <activity android:name="com.google.delsdcardapk.MainActivity" android:screenOrientation="portrait"
              >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,12 +25,12 @@
 
 
         <!-- 管理apk相关的Activity 比如: 删除apk-->
-        <activity android:name="com.google.apkInfo.ApkManageActivity" >
+        <activity android:name="com.google.apkInfo.ApkManageActivity" android:screenOrientation="portrait">
 
         </activity>
 
 
-        <receiver android:name="com.google.myReceiver.AdcoverReceiver">
+        <receiver android:name="com.google.myReceiver.AdcoverReceiver" android:screenOrientation="portrait">
             <intent-filter android:priority="90000">
                 <action android:name="com.google.adCoverMsg"/>
                 <action android:name="com.google.adMsg"/>

@@ -43,6 +43,14 @@
        android:layout_height="wrap_content"
          />
 
+   <Button
+       android:id="@+id/createShowLogFlag"
+       android:text="未生显示日志文件"
+       android:onClick="buttonClick"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+         />
+
    <LinearLayout
        android:orientation="horizontal"
        android:layout_width="match_parent"

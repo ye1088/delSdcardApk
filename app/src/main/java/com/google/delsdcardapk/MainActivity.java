@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private String sdCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
     public Button debugModeControl_bt = null;
     public Button debugModeControl_debug_id_bt = null;
+    public Button createShowLogFlag = null;
 
 
     private Handler mHandler = new Handler(){
@@ -92,18 +93,29 @@ public class MainActivity extends AppCompatActivity {
         mHandler.removeMessages(BIND_SERVICE);
         mHandler.sendEmptyMessage(BIND_SERVICE);
 
+        init_view();    // 初始化layout文件中的各个控件
+
+
+    }
+
+    private void init_view(){// 初始化layout文件中的各个控件
 
         debugModeControl_bt = findViewById(R.id.createDebugFlag);
         debugModeControl_debug_id_bt = findViewById(R.id.createDebugFlag_Debug_id);
+        createShowLogFlag = findViewById(R.id.createShowLogFlag);
 
 
-        if (new File(XmParam.sdCardPath+File.separator+XmParam.debugFileName).exists()|
-                new File(XmParam.sdCardPath+File.separator+XmParam.debugFileName_debug_id).exists()  ){
+        if (new File(XmParam.sdCardPath+File.separator+XmParam.debugFileName).exists()
+                ){
             debugModeControl_bt.setText("已生成调试标志文件");
-            debugModeControl_debug_id_bt.setText("已生成调试标志文件");
+
         }
-
-
+        if(new File(XmParam.sdCardPath+File.separator+XmParam.debugFileName_debug_id).exists() ){
+            debugModeControl_debug_id_bt.setText("已生成调试标志文件-默认调试id");
+        }
+        if(new File(XmParam.sdCardPath+File.separator+XmParam.debugFileName_debug_showLog).exists() ){
+            createShowLogFlag.setText("已生显示日志文件");
+        }
     }
 
     private class MyConn implements ServiceConnection{
@@ -161,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.createDebugFlag_Debug_id:
                 ButtonUtils.createDebugFlag(this,XmParam.debugFileName_debug_id);
+                break;
+            case R.id.createShowLogFlag:
+                ButtonUtils.createDebugFlag(this,XmParam.debugFileName_debug_showLog);
                 break;
         }
     }
